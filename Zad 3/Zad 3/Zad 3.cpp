@@ -6,20 +6,27 @@
 #include <vector>
 #include <fstream>
 
-const int NUM = 26;
-
-const std::string wordlist[NUM] = {};
-
 int main()
 {
 	std::srand(std::time(0));
+	std::vector<std::string> wordlist;
+	std::ifstream file_inp;
+	std::string temp;
 	char play;
+
+	file_inp.open("words.txt");
 	std::cout << "Would you like to play? <y/n>\n";
 	std::cin >> play;
 	play = tolower(play);
-	while (play == 'y')
+	while (play == 'y' && file_inp.is_open())
 	{
-		std::string target = wordlist[std::rand() % NUM];
+		while (!file_inp.eof())
+		{
+			file_inp >> temp;
+			wordlist.push_back(temp);
+		}
+
+		std::string target = wordlist[std::rand() % wordlist.size()];
 		int length = target.length();
 		std::string attempt(length, '-');
 		std::string badchars;
