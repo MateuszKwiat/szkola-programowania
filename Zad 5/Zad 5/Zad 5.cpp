@@ -4,21 +4,29 @@
 
 const int NUM = 10;
 
-int reduce(long ar[], int n);
+template <typename T>
+int reduce(T ar[], int n);
 
 int main()
 {
 	long ar[NUM] = { 10, 20, 12, 10, 15, 20, 50, 21, 50, 32 };
+	std::string str_ar[NUM] = { "art", "river", "support", "weather",
+		"support", "base", "drop", "art", "support", "hand" };
 
-	std::cout << reduce(ar, NUM) << std::endl;
-
+	std::cout << reduce<long>(ar, NUM) << std::endl;
+	
 	for (auto x : ar)
+		std::cout << x << std::endl;
+
+	std::cout << std::endl << reduce<std::string>(str_ar, NUM) << std::endl;
+	for (auto x : str_ar)
 		std::cout << x << std::endl;
 }
 
-int reduce(long ar[], int n)
+template <typename T>
+int reduce(T ar[], int n)
 {
-	std::vector<long> temp_ar(ar, ar + n);
+	std::vector<T> temp_ar(ar, ar + n);
 
 	std::sort(temp_ar.begin(), temp_ar.end());
 	auto last = std::unique(temp_ar.begin(), temp_ar.end());
