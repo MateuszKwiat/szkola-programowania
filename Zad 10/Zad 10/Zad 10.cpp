@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 struct Review
 {
@@ -10,17 +11,18 @@ struct Review
 	double price;
 };
 
-bool operator<(const Review& r1, const Review& r2);
-bool worseThan(const Review& e1, const Review& r2);
+bool operator<(const std::shared_ptr<Review>& r1, const std::shared_ptr<Review>& r2);
+bool worseThan(const std::shared_ptr<Review>& e1, const std::shared_ptr<Review>& r2);
 bool FillReview(Review& rr);
-void ShowReview(const Review& rr);
+void ShowReview(const std::shared_ptr<Review>& rr);
 
 int main()
 {
 	std::vector<std::shared_ptr<Review>> books;
-	std::shared_ptr<Review> temp;
+	Review temp;
 	while (FillReview(temp))
-		books.push_back(new(temp));
+		books.push_back(std::shared_ptr<Review>(new Review(temp)));
+	
 	if (books.size() > 0)
 	{
 		std::cout << "You have reviewed "
@@ -44,19 +46,19 @@ int main()
 		std::cout << "No data.\n";
 }
 
-bool operator<(const Review& r1, const Review& r2)
+bool operator<(const std::shared_ptr<Review>& r1, const std::shared_ptr<Review>& r2)
 {
-	if (r1.title < r2.title)
+	if (r1->title < r2->title)
 		return true;
-	else if (r1.title == r2.title && r1.rating < r2.rating)
+	else if (r1->title == r2->title && r1->rating < r2->rating)
 		return true;
 	else
 		return false;
 }
 
-bool worseThan(const Review& r1, const Review& r2)
+bool worseThan(const std::shared_ptr<Review>& r1, const std::shared_ptr<Review>& r2)
 {
-	if (r1.rating < r2.rating)
+	if (r1->rating < r2->rating)
 		return true;
 	else
 		return false;
@@ -78,7 +80,7 @@ bool FillReview(Review& rr)
 	return true;
 }
 
-void ShowReview(const Review& rr)
+void ShowReview(const std::shared_ptr<Review>& rr)
 {
-	std::cout << rr.rating << "\t" << rr.title << std::endl;
+	std::cout << rr->rating << "\t" << rr->title << std::endl;
 }
