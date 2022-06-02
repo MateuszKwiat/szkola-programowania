@@ -7,6 +7,7 @@ struct Review
 {
 	std::string title;
 	int rating;
+	double price;
 };
 
 bool operator<(const Review& r1, const Review& r2);
@@ -16,10 +17,10 @@ void ShowReview(const Review& rr);
 
 int main()
 {
-	std::vector<Review> books;
-	Review temp;
+	std::vector<std::shared_ptr<Review>> books;
+	std::shared_ptr<Review> temp;
 	while (FillReview(temp))
-		books.push_back(temp);
+		books.push_back(new(temp));
 	if (books.size() > 0)
 	{
 		std::cout << "You have reviewed "
