@@ -33,6 +33,15 @@ std::ifstream& abstr_emp::FileSetAll(std::ifstream& fin)
 	return fin;
 }
 
+std::ofstream& abstr_emp::FileOut(std::ofstream& fout)
+{
+	fout << fname << std::endl;
+	fout << lname << std::endl;
+	fout << job << std::endl;
+
+	return fout;
+}
+
 std::ostream& operator<<(std::ostream& os, const abstr_emp& e)
 {
 	std::cout << e.fname << ' ' << e.lname << ": " << e.job << std::endl;
@@ -55,6 +64,12 @@ std::ifstream& employee::FileSetAll(std::ifstream& fin)
 {
 	abstr_emp::FileSetAll(fin);
 	return fin;
+}
+
+std::ofstream& employee::FileOut(std::ofstream& fout)
+{
+	abstr_emp::FileOut(fout);
+	return fout;
 }
 
 // MANAGER
@@ -91,6 +106,14 @@ std::ifstream& manager::FileSetAll(std::ifstream& fin)
 	return fin;
 }
 
+std::ofstream& manager::FileOut(std::ofstream& fout)
+{
+	abstr_emp::FileOut(fout);
+	fout << inchargeof << std::endl;
+
+	return fout;
+}
+
 // FINK
 fink::fink() : abstr_emp(), reportsto() {}
 
@@ -122,6 +145,14 @@ std::ifstream& fink::FileSetAll(std::ifstream& fin)
 	fin >> reportsto;
 
 	return fin;
+}
+
+std::ofstream& fink::FileOut(std::ofstream& fout)
+{
+	abstr_emp::FileOut(fout);
+	fout << reportsto << std::endl;
+
+	return fout;
 }
 
 // HIGHFINK
@@ -168,4 +199,13 @@ std::ifstream& highfink::FileSetAll(std::ifstream& fin)
 	fin >> ReportsTo();
 	
 	return fin;
+}
+
+std::ofstream& highfink::FileOut(std::ofstream& fout)
+{
+	abstr_emp::FileOut(fout);
+	fout << InChargeOf() << std::endl;
+	fout << ReportsTo() << std::endl;
+
+	return fout;
 }

@@ -16,6 +16,7 @@ public:
 	virtual void ShowAll() const;
 	virtual void SetAll();
 	virtual std::ifstream& FileSetAll(std::ifstream& fin);
+	virtual std::ofstream& FileOut(std::ofstream& fout);
 	friend std::ostream& operator<<(std::ostream& os, 
 		const abstr_emp& e);
 	virtual ~abstr_emp() = 0;
@@ -30,7 +31,7 @@ public:
 	virtual void ShowAll() const;
 	virtual void SetAll();
 	virtual std::ifstream& FileSetAll(std::ifstream& fin);
-
+	virtual std::ofstream& FileOut(std::ofstream& fout);
 };
 
 class manager : virtual public abstr_emp
@@ -49,7 +50,7 @@ public:
 	virtual void ShowAll() const;
 	virtual void SetAll();
 	virtual std::ifstream& FileSetAll(std::ifstream& fin);
-
+	virtual std::ofstream& FileOut(std::ofstream& fout);
 };
 
 class fink : virtual public abstr_emp
@@ -68,7 +69,7 @@ public:
 	virtual void ShowAll() const;
 	virtual void SetAll();
 	virtual std::ifstream& FileSetAll(std::ifstream& fin);
-
+	virtual std::ofstream& FileOut(std::ofstream& fout);
 };
 
 class highfink : public manager, public fink
@@ -85,4 +86,5 @@ public:
 	virtual void ShowAll() const;
 	virtual void SetAll();
 	virtual std::ifstream& FileSetAll(std::ifstream& fin);
+	virtual std::ofstream& FileOut(std::ofstream& fout);
 };
