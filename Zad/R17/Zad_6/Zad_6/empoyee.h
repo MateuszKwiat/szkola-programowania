@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 
 class abstr_emp
 {
@@ -14,6 +15,7 @@ public:
 		const std::string& j);
 	virtual void ShowAll() const;
 	virtual void SetAll();
+	virtual std::ifstream& FileSetAll(std::ifstream& fin);
 	friend std::ostream& operator<<(std::ostream& os, 
 		const abstr_emp& e);
 	virtual ~abstr_emp() = 0;
@@ -27,6 +29,8 @@ public:
 		const std::string& j);
 	virtual void ShowAll() const;
 	virtual void SetAll();
+	virtual std::ifstream& FileSetAll(std::ifstream& fin);
+
 };
 
 class manager : virtual public abstr_emp
@@ -44,6 +48,8 @@ public:
 	manager(const manager& m);
 	virtual void ShowAll() const;
 	virtual void SetAll();
+	virtual std::ifstream& FileSetAll(std::ifstream& fin);
+
 };
 
 class fink : virtual public abstr_emp
@@ -61,6 +67,8 @@ public:
 	fink(const fink& e);
 	virtual void ShowAll() const;
 	virtual void SetAll();
+	virtual std::ifstream& FileSetAll(std::ifstream& fin);
+
 };
 
 class highfink : public manager, public fink
@@ -76,4 +84,5 @@ public:
 	highfink(const highfink& h);
 	virtual void ShowAll() const;
 	virtual void SetAll();
+	virtual std::ifstream& FileSetAll(std::ifstream& fin);
 };

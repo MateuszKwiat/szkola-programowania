@@ -24,6 +24,15 @@ void abstr_emp::SetAll()
 	std::cin >> job;
 }
 
+std::ifstream& abstr_emp::FileSetAll(std::ifstream& fin)
+{
+	fin >> fname;
+	fin >> lname;
+	fin >> job;
+
+	return fin;
+}
+
 std::ostream& operator<<(std::ostream& os, const abstr_emp& e)
 {
 	std::cout << e.fname << ' ' << e.lname << ": " << e.job << std::endl;
@@ -41,6 +50,12 @@ employee::employee(const std::string& fn, const std::string& ln,
 void employee::ShowAll() const { abstr_emp::ShowAll(); }
 
 void employee::SetAll() { abstr_emp::SetAll(); }
+
+std::ifstream& employee::FileSetAll(std::ifstream& fin) 
+{
+	abstr_emp::FileSetAll(fin);
+	return fin;
+}
 
 // MANAGER
 manager::manager() : abstr_emp(), inchargeof(0) {}
@@ -68,6 +83,14 @@ void manager::SetAll()
 	std::cin >> inchargeof;
 }
 
+std::ifstream& manager::FileSetAll(std::ifstream& fin)
+{
+	abstr_emp::FileSetAll(fin);
+	fin >> inchargeof;
+
+	return fin;
+}
+
 // FINK
 fink::fink() : abstr_emp(), reportsto() {}
 
@@ -91,6 +114,14 @@ void fink::SetAll()
 	abstr_emp::SetAll();
 	std::cout << "Reports to:\n";
 	std::cin >> reportsto;
+}
+
+std::ifstream& fink::FileSetAll(std::ifstream& fin)
+{
+	abstr_emp::FileSetAll(fin);
+	fin >> reportsto;
+
+	return fin;
 }
 
 // HIGHFINK
@@ -128,4 +159,13 @@ void highfink::SetAll()
 	std::cin >> manager::InChargeOf();
 	std::cout << "Reports to:\n";
 	std::cin >> fink::ReportsTo();
+}
+
+std::ifstream& highfink::FileSetAll(std::ifstream& fin)
+{
+	abstr_emp::FileSetAll(fin);
+	fin >> InChargeOf();
+	fin >> ReportsTo();
+	
+	return fin;
 }
